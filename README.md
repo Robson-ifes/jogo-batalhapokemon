@@ -115,4 +115,4 @@ Você pode jogar a batalha contra o Charizard diretamente no seu navegador! Cliq
 ## 📣 Agradecimentos
 
 - [PokéAPI](https://pokeapi.co/) por disponibilizar os dados dos Pokémon
-- Comunidade de código aberto pela inspiração no design
+- Comunidade de código aberto pela ajuda na construção do código
