@@ -91,8 +91,14 @@ const chefe = {
 
 ---
 
-## 📸 Link para o Github pages
+## 🚀 Acesse o Jogo no GitHub Pages
 
+Você pode jogar a batalha contra o Charizard diretamente no seu navegador! Clique no link abaixo para acessar a versão online do jogo:
+
+[![Acesse o Jogo Pokémon](https://img.shields.io/badge/Play%20Now-GitHub%20Pages-brightgreen?style=for-the-badge&logo=github)](https://robson-ifes.github.io/jogo-batalhapokemon/)
+
+🔗 **Link para o GitHub Pages**:  
+[https://robson-ifes.github.io/jogo-batalhapokemon/](https://robson-ifes.github.io/jogo-batalhapokemon/)
 
 
 ---
