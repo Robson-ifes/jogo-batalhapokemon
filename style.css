@@ -1,0 +1,556 @@
+body {
+    font-family: 'Press Start 2P', cursive;
+    background: linear-gradient(to right, #1a2a3a, #2d3b4a);
+    color: white;
+    margin: 0;
+    padding: 25px;
+    text-align: center;
+    overflow-x: hidden;
+  }
+  
+  h1, h2 {
+    margin-bottom: 25px;
+    text-shadow: 3px 3px 0 #000;
+    color: #ffde00;
+  }
+  
+  .botoes-container {
+    margin: 30px 0;
+  }
+  
+  button {
+    background-color: #ffde00;
+    border: 3px solid #cc0000;
+    padding: 15px 30px;
+    margin: 15px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: all 0.3s;
+    font-weight: bold;
+    box-shadow: 0 6px 0 #cc0000;
+    color: #333;
+    text-transform: uppercase;
+  }
+  
+  button:hover {
+    background-color: #ffcc00;
+    transform: translateY(-3px);
+  }
+  
+  button:active {
+    transform: translateY(3px);
+    box-shadow: 0 3px 0 #cc0000;
+  }
+  
+  #background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #1a2a3a, #2d3b4a);
+    z-index: -2;
+    transition: background 1.5s ease;
+  }
+  
+  #particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+  
+  #chefe-container,
+  #fila-container,
+  #resultado-batalha,
+  #ranking {
+    margin: 35px auto;
+    padding: 30px;
+    max-width: 800px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.7);
+    border: 4px solid #ffde00;
+  }
+  
+  #chefe-container img,
+  #fila-lista img,
+  #resultado-batalha img {
+    height: 180px;
+    margin: 20px;
+    image-rendering: pixelated;
+  }
+  
+  #fila-lista {
+    padding: 0;
+    max-height: 500px;
+    overflow-y: auto;
+  }
+  
+  #fila-lista li {
+    list-style: none;
+    background-color: rgba(255, 222, 0, 0.2);
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid #ffde00;
+    font-size: 0.9rem;
+  }
+  
+  .health-bar-container {
+    width: 100%;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .health-bar {
+    width: 300px;
+    height: 30px;
+    background-color: #333;
+    border-radius: 15px;
+    border: 3px solid #000;
+    overflow: hidden;
+    margin-right: 20px;
+  }
+  
+  .health-bar-fill {
+    height: 100%;
+    border-radius: 12px;
+    transition: width 1s ease, background-color 0.5s ease;
+    background: linear-gradient(to right, #00cc00, #00ff00);
+  }
+  
+  /* Efeitos de batalha */
+  .efeito {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0;
+  }
+  
+  #efeito-flash {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+  }
+  
+  #efeito-explosao {
+    width: 300px;
+    height: 300px;
+    background-image: radial-gradient(circle, #ffde00 20%, #ff6600 50%, transparent 80%);
+    border-radius: 50%;
+    transform: scale(0);
+  }
+  
+  .flash {
+    animation: flash 1.5s linear;
+  }
+  
+  .shake {
+    animation: shake 1s ease-in-out;
+  }
+  
+  .explosao {
+    animation: explosao 1.5s ease-out forwards;
+  }
+  
+  @keyframes flash {
+    0%, 100% { opacity: 0; }
+    20% { opacity: 0.9; }
+    40% { opacity: 0.2; }
+    60% { opacity: 0.7; }
+    80% { opacity: 0.3; }
+  }
+  
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-15px); }
+    20%, 40%, 60%, 80% { transform: translateX(15px); }
+  }
+  
+  @keyframes explosao {
+    0% { transform: scale(0.1); opacity: 0.8; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+  
+  .batalha-resultado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+    flex-wrap: wrap;
+  }
+  
+  .pokemon-battle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px;
+    width: 250px;
+  }
+  
+  .versus {
+    font-size: 1.8rem;
+    margin: 0 30px;
+    color: #ffde00;
+    text-shadow: 3px 3px 0 #000;
+  }
+  
+  .venceu {
+    color: #4caf50;
+    text-shadow: 3px 3px 0 #000;
+    font-size: 1.5rem;
+    margin-top: 20px;
+  }
+  
+  .perdeu {
+    color: #f44336;
+    text-shadow: 3px 3px 0 #000;
+    font-size: 1.5rem;
+    margin-top: 20px;
+  }
+  
+  #ranking ul {
+    padding: 0;
+    list-style-type: none;
+    font-size: 0.8rem;
+  }
+  
+  #ranking li {
+    padding: 15px;
+    margin: 12px 0;
+    background: rgba(255, 222, 0, 0.3);
+    border-radius: 12px;
+    border: 3px solid #ffde00;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .destaque-entrada {
+    animation: entrada 0.8s ease-out;
+  }
+  
+  @keyframes entrada {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  
+  /* Barra de rolagem */
+  #fila-lista::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  #fila-lista::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+  }
+  
+  #fila-lista::-webkit-scrollbar-thumb {
+    background: #ffde00;
+    border-radius: 10px;
+  }
+  
+  /* Efeitos de fundo */
+  .bg-normal {
+    background: linear-gradient(to right, #1a2a3a, #2d3b4a) !important;
+  }
+  
+  .bg-battle {
+    background: linear-gradient(to right, #3a1a1a, #4a2d2d) !important;
+  }
+  
+  .bg-victory {
+    background: linear-gradient(to right, #1a3a1a, #2d4a2d) !important;
+  }
+  
+  .bg-defeat {
+    background: linear-gradient(to right, #3a1a2a, #4a2d3d) !important;
+  }
+  
+  /* Animação de dano */
+  @keyframes damage {
+    0% { background-color: inherit; }
+    50% { background-color: rgba(255, 0, 0, 0.5); }
+    100% { background-color: inherit; }
+  }
+  
+  .damage-effect {
+    animation: damage 0.5s ease;
+  }
+  
+  .pokemon-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+  }
+  
+  .posicao {
+    color: #ffde00;
+    min-width: 40px;
+  }
+  
+  .vencedor {
+    flex-grow: 1;
+    text-align: center;
+    margin: 0 15px;
+  }
+  
+  .dano, .data {
+    font-size: 0.7rem;
+    color: #ccc;
+  }
+  
+  /* Estilo para barras vazias */
+  .health-bar-fill[style*="width: 0%"] {
+    background: #ff0000 !important;
+    transition: none;
+  }
+  
+  /* Estilo para barras com 50% */
+  .health-bar-fill[style*="width: 50%"] {
+    background: linear-gradient(to right, #00cc00, #00ff00) !important;
+  }
+  
+  .type-normal { background-color: #A8A878; }
+          .type-fire { background-color: #F08030; }
+          .type-water { background-color: #6890F0; }
+          .type-electric { background-color: #F8D030; }
+          .type-grass { background-color: #78C850; }
+          .type-ice { background-color: #98D8D8; }
+          .type-fighting { background-color: #C03028; }
+          .type-poison { background-color: #A040A0; }
+          .type-ground { background-color: #E0C068; }
+          .type-flying { background-color: #A890F0; }
+          .type-psychic { background-color: #F85888; }
+          .type-bug { background-color: #A8B820; }
+          .type-rock { background-color: #B8A038; }
+          .type-ghost { background-color: #705898; }
+          .type-dragon { background-color: #7038F8; }
+          .type-dark { background-color: #705848; }
+          .type-steel { background-color: #B8B8D0; }
+          .type-fairy { background-color: #EE99AC; }
+          
+          .type-badge {
+              padding: 2px 8px;
+              border-radius: 10px;
+              color: white;
+              font-size: 12px;
+              text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+              margin-left: 5px;
+          }
+  
+  /* ========== MEDIA QUERIES ========== */
+  
+  /* Tablets e telas médias (768px a 1024px) */
+  @media (max-width: 1024px) {
+    #chefe-container,
+    #fila-container,
+    #resultado-batalha,
+    #ranking {
+      max-width: 90%;
+      padding: 20px;
+    }
+  
+    #chefe-container img,
+    #fila-lista img,
+    #resultado-batalha img {
+      height: 150px;
+    }
+  
+    .health-bar {
+      width: 250px;
+    }
+  
+    .versus {
+      margin: 0 15px;
+      font-size: 1.5rem;
+    }
+  
+    button {
+      padding: 12px 24px;
+      font-size: 0.9rem;
+    }
+  }
+  
+  /* Smartphones grandes (576px a 767px) */
+  @media (max-width: 767px) {
+    body {
+      padding: 15px;
+    }
+  
+    h1 {
+      font-size: 1.8rem;
+    }
+  
+    h2 {
+      font-size: 1.4rem;
+    }
+  
+    #chefe-container img,
+    #fila-lista img,
+    #resultado-batalha img {
+      height: 120px;
+    }
+  
+    .health-bar {
+      width: 200px;
+      height: 25px;
+    }
+  
+    .batalha-resultado {
+      flex-direction: column;
+    }
+  
+    .versus {
+      margin: 15px 0;
+      font-size: 1.3rem;
+    }
+  
+    .pokemon-battle {
+      width: 100%;
+      margin: 10px 0;
+    }
+  
+    #fila-lista li {
+      padding: 15px;
+      font-size: 0.8rem;
+    }
+  
+    button {
+      padding: 10px 20px;
+      margin: 8px;
+      font-size: 0.8rem;
+    }
+  }
+  
+  /* Smartphones pequenos (até 575px) */
+  @media (max-width: 575px) {
+    h1 {
+      font-size: 1.5rem;
+    }
+  
+    h2 {
+      font-size: 1.2rem;
+    }
+  
+    #chefe-container,
+    #fila-container,
+    #resultado-batalha,
+    #ranking {
+      padding: 15px;
+    }
+  
+    #chefe-container img,
+    #fila-lista img,
+    #resultado-batalha img {
+      height: 100px;
+    }
+  
+    .health-bar {
+      width: 160px;
+      height: 20px;
+    }
+  
+    .health-bar-container span {
+      font-size: 0.7rem;
+    }
+  
+    .venceu, .perdeu {
+      font-size: 1.2rem;
+    }
+  
+    #fila-lista li {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .pokemon-info {
+      margin-top: 10px;
+    }
+  
+    button {
+      width: 100%;
+      margin: 5px 0;
+    }
+  
+    /* Ajuste especial para partículas em telas pequenas */
+    #particles-js {
+      display: none; /* Melhora performance em dispositivos mais lentos */
+    }
+  }
+  
+  /* Telas muito pequenas (até 400px) */
+  @media (max-width: 400px) {
+    #chefe-container img,
+    #fila-lista img,
+    #resultado-batalha img {
+      height: 80px;
+    }
+  
+    .health-bar {
+      width: 120px;
+    }
+  
+    .versus {
+      font-size: 1.1rem;
+    }
+  
+    #ranking li {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    #ranking .posicao,
+    #ranking .vencedor,
+    #ranking .dano,
+    #ranking .data {
+      margin: 3px 0;
+    }
+  }
+  
+  /* Orientação paisagem em smartphones */
+  @media (max-height: 500px) and (orientation: landscape) {
+    #chefe-container,
+    #fila-container,
+    #resultado-batalha,
+    #ranking {
+      margin: 15px auto;
+      padding: 10px;
+    }
+  
+    #fila-lista {
+      max-height: 150px;
+    }
+  
+    #chefe-container img,
+    #fila-lista img,
+    #resultado-batalha img {
+      height: 80px;
+    }
+  
+    .health-bar {
+      width: 120px;
+      height: 15px;
+    }
+  
+    h1 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+  
+    h2 {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+  }
